@@ -1,0 +1,7 @@
+./lista.txt
+./adresy.txt
+./wyniki.txt
+./tresc.txt
+./wynik_tar.txt
+./find_tar_flags.txt
+./lista23456789.txt
