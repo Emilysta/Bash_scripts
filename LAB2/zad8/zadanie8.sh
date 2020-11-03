@@ -1,6 +1,3 @@
 #!/bin/bash
-./zadanie8.sh &
-./zadanie8.sh &
-
-
-
+nice -n 19 ./zadanie8.sh &
+nice -n 19 ./zadanie8.sh &
