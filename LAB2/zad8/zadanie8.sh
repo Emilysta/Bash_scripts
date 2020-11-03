@@ -1,7 +1,6 @@
 #!/bin/bash
-while true;
-do
-	./zadanie8.sh &
-	sleep 0.5
-done
+./zadanie8.sh &
+./zadanie8.sh &
+
+
 
