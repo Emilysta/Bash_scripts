@@ -3,6 +3,5 @@
 
 while true;
 do
-	echo $(date +"%H:%M:%S") "PID: $$ ";
-	sleep 1
+	echo  "PID: $$ " > /dev/null;
 done
