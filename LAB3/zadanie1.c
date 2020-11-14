@@ -1,10 +1,5 @@
 #include <stdio.h>
 #include <time.h>
-#include <signal.h>
-#include <unistd.h>
-#include <ucontext.h>
-#include <stdlib.h>
-
 
 int main(){
 
