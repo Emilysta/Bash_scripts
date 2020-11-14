@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include <time.h>
 
 int main(){
 
+    printf("Mój pid: %ld\n",(long)getpid());
     while(1){
-        printf("Mój numer pid: %ld\n",(long)getpid());
+        printf("Hello\n");
         sleep(1);
     }
     return 0;
