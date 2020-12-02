@@ -10,7 +10,6 @@
 int main(int argc, char *argv[])
 {
     char *fifo_name = "/home/emilia/Pulpit/fifo";
-    char name[100];
     int text_c[200];
 
     if (mkfifo(fifo_name, 0666) == -1)
@@ -20,7 +19,6 @@ int main(int argc, char *argv[])
     if (argc > 1)
     {
         int fd = open(fifo_name, O_WRONLY);
-        write(1, "elo2\n", 5);
         if (fd < 0)
         {
             write(2, "Nie ma pliku lub nie można go odczytac\n", 39);
@@ -32,9 +30,10 @@ int main(int argc, char *argv[])
             int fd_file = open(argv[i], O_RDONLY);
             if (fd_file < 0)
             {
-                write(2, "Nie ma pliku lub nie można go odczytac\n", 39);
+                write(2, "Nie ma pliku lub nie mozna go odczytac\n", 39);
                 write(1, "Pomijam plik: ", 14);
-                write(1, name, sizeof(name));
+                write(1, argv[i], sizeof(argv[i]) + 1);
+                write(1, "\n", 1);
             }
             else
             {
@@ -48,6 +47,7 @@ int main(int argc, char *argv[])
                 }
                 close(fd_file);
             }
+            sleep(5); //uśpij na 5 sekund
         }
         close(fd); /* Zakończenie pisania */
     }
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
         write(1, "Brak argumentow\n", 16);
         exit(EXIT_FAILURE);
     }
-    write(1, "Czekam 5 sekund i koncze\n", 25);
+    write(1, "Koncze prace\n", 13);
     sleep(5);
     exit(EXIT_SUCCESS);
 
