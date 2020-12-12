@@ -21,7 +21,9 @@ int main()
         char file_name[100];
         int files_fd;
         int file_size;
-        char *addr = NULL;
+        int tmp;
+        int *addr = NULL;
+        FILE *file_to_read;
         while (1)
         {
             printf("Podaj nazwe pliku: ");
@@ -31,8 +33,15 @@ int main()
             {
                 file_size = lseek(files_fd, 0, SEEK_END);
                 ftruncate(mem_desc, file_size);
-                addr = mmap(NULL, file_size, PROT_WRITE | PROT_READ, MAP_SHARED, mem_desc, 0);
-                read(files_fd, addr, file_size);
+                addr = (int *)mmap(NULL, file_size, PROT_WRITE | PROT_READ, MAP_SHARED, mem_desc, 0);
+                int i = 0;
+                file_to_read = fopen(file_name, "r");
+                while (!feof(file_to_read))
+                {
+                    if ((tmp = fgetc(file_to_read)) == NULL)
+                        break;
+                    addr[i++] = tmp;
+                }
                 msync(addr, file_size, MS_SYNC);
                 munmap(addr, file_size);
             }
