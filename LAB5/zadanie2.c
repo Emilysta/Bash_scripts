@@ -5,7 +5,6 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <poll.h>
 
 int main()
 {
@@ -36,6 +35,7 @@ int main()
                 addr = (int *)mmap(NULL, file_size, PROT_WRITE | PROT_READ, MAP_SHARED, mem_desc, 0);
                 read(files_fd, addr, file_size);
                 msync(addr, file_size, MS_SYNC);
+                munmap(addr, file_size);
             }
             else
             {
@@ -43,7 +43,6 @@ int main()
             }
             close(files_fd);
         }
-        munmap(addr, file_size);
         close(mem_desc);
         exit(EXIT_SUCCESS);
     }
@@ -53,7 +52,6 @@ int main()
         while (read(mem_desc, &buff, 1) == 0)
             sleep(2);
         execlp("display", "display", "-update", "1", "memory2", (char *)NULL);
-        //execlp("qiv", "qiv", "--watch", "memory2.png", (char *)NULL);
     }
     else
     {
