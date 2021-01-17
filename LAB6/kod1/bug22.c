@@ -37,11 +37,13 @@ int main(int argc, char *argv[])
   int rc;
   long t;
   pthread_attr_init(&attr);
+  stacksize = ARRAY_SIZE * sizeof(double) + sizeof(double) + sizeof(int) + sizeof(long) + 10000;
+  pthread_attr_setstacksize(&attr, stacksize);
   pthread_attr_getstacksize(&attr, &stacksize);
   printf("Thread stack size = %li bytes (hint, hint)\n", stacksize);
   for (t = 0; t < NTHREADS; t++)
   {
-    rc = pthread_create(&threads[t], NULL, Hello, (void *)t);
+    rc = pthread_create(&threads[t], &attr, Hello, (void *)t);
     if (rc)
     {
       printf("ERROR; return code from pthread_create() is %d\n", rc);
